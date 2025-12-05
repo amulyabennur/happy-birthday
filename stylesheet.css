@@ -1,3 +1,14 @@
+/* FORCE hide balloon names (Soham etc.) */
+.balloons h2,
+.balloons h2 *,
+#b1 h2, #b2 h2, #b3 h2, #b4 h2, #b5 h2, #b6 h2, #b7 h2,
+#b11 h2, #b22 h2, #b33 h2, #b44 h2, #b55 h2, #b66 h2, #b77 h2 {
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    color: transparent !important;
+    text-shadow: none !important;
+}
 /* Remove/hide balloon label text (hides the name like "Soham") */
 .balloons h2 {
     display: none !important;
