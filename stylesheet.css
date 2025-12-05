@@ -1,3 +1,9 @@
+/* Remove/hide balloon label text (hides the name like "Soham") */
+.balloons h2 {
+    display: none !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+}
 body {
 	/*background-color: #FFDAB9;	*/
 	background-color: #000;
