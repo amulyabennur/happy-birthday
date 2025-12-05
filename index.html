@@ -1,3 +1,103 @@
+<!--
+Ready-to-deploy single-file birthday page.
+
+Instructions:
+1) If you want to use it now: copy this entire file and replace the current repo's index.html (use GitHub web editor: open index.html -> pencil icon -> replace -> Commit changes).
+2) To personalize: replace OMIEEE KITTY with your crush's name and update the message string below (inside the <p id="message"> tag) OR tell me the name and I'll update the file for you.
+3) After committing, wait ~30s and open: https://amulyabennur.github.io/happy-birthday/
+
+I created this file with a gentle, sweet tone, confetti effect, and a friendly button. If you want a different tone (playful/casual/romantic), tell me and I'll make a second version.
+-->
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Happy Birthday 🎉</title>
+  <style>
+    :root{--bg1:#0f172a;--bg2:#07133a;--card:#ffffff10;--accent:#ffb86b}
+    *{box-sizing:border-box}
+    body{margin:0;min-height:100vh;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,var(--bg1),var(--bg2));color:#fff;font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial}
+    .wrap{width:92%;max-width:760px;padding:28px;border-radius:18px;background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));box-shadow:0 10px 30px rgba(2,6,23,0.6);text-align:center}
+    h1{font-size:2.1rem;margin:0 0 6px}
+    .name{color:var(--accent);font-weight:700}
+    p{margin:10px 0 18px;opacity:0.95}
+    .btn{display:inline-block;padding:12px 18px;border-radius:12px;background:linear-gradient(90deg,#ffd6a5,#ffb86b);color:#111;font-weight:600;text-decoration:none;cursor:pointer;border:none}
+    .small{font-size:0.9rem;opacity:0.85}
+    .image{margin:16px 0}
+    img{max-width:210px;border-radius:12px;box-shadow:0 8px 20px rgba(0,0,0,0.4)}
+    /* confetti canvas fills screen */
+    canvas#confetti{position:fixed;left:0;top:0;pointer-events:none;z-index:40}
+    footer{margin-top:18px;font-size:0.85rem;opacity:0.85}
+  </style>
+</head>
+<body>
+  <canvas id="confetti"></canvas>
+  <div class="wrap">
+    <h1>Happy Birthday, <span class="name">OMIEEE KITTY</span>! 🎉</h1>
+    <p id="message">Hey OMIEEE KITTY — wishing you the brightest birthday! I made this little surprise and hope it makes you smile. — <strong>Amulya</strong></p>
+    <div class="image">
+      <!-- You can replace the image src with any image in the repo or an external URL -->
+      <img id="mainImg" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=800&auto=format&fit=crop&ixlib=rb-4.0.3&s=9b3f4b9b7a3a1b3a6e1f1c7a7f8c2a1f" alt="Birthday"/>
+    </div>
+    <button class="btn" id="openGift">Open your surprise 🎁</button>
+    <div id="surprise" style="display:none;margin-top:16px">
+      <p class="small">A little wish from me — may your day be full of tiny joys and warm moments ✨</p>
+    </div>
+    <footer>Made with ❤️ by Amulya</footer>
+  </div>
+
+  <script>
+    // Simple show/hide for the surprise
+    document.getElementById('openGift').addEventListener('click', function(){
+      var s = document.getElementById('surprise');
+      s.style.display = s.style.display === 'none' ? 'block' : 'none';
+      // add gentle confetti burst
+      launchConfetti(160);
+    });
+
+    // Confetti script (lightweight)
+    (function(){
+      const canvas = document.getElementById('confetti');
+      const ctx = canvas.getContext('2d');
+      let W = canvas.width = window.innerWidth;
+      let H = canvas.height = window.innerHeight;
+      window.addEventListener('resize', ()=>{W=canvas.width=window.innerWidth;H=canvas.height=window.innerHeight});
+
+      function rand(min,max){return Math.random()*(max-min)+min}
+      function launchConfetti(count){
+        const confetti = [];
+        for(let i=0;i<count;i++){
+          confetti.push({x:rand(0,W),y:rand(-H,0),r:rand(6,12),d:rand(2,6),tilt:rand(-10,10),color:["#FFD166","#FFB86B","#A0E7E5","#C7F9CC","#FFC6C7"][Math.floor(rand(0,5))]});
+        }
+        let ticks=0;
+        function update(){
+          ctx.clearRect(0,0,W,H);
+          for(let i=0;i<confetti.length;i++){
+            const p = confetti[i];
+            p.y += p.d;
+            p.x += Math.sin(p.y * 0.01) * 2;
+            p.tilt += 0.1;
+            ctx.save();
+            ctx.translate(p.x,p.y);
+            ctx.rotate(p.tilt * Math.PI/180);
+            ctx.fillStyle = p.color;
+            ctx.fillRect(-p.r/2,-p.r/2,p.r, p.r*0.6);
+            ctx.restore();
+          }
+          ticks++;
+          if(ticks<160){requestAnimationFrame(update)} else {ctx.clearRect(0,0,W,H)}
+        }
+        requestAnimationFrame(update);
+      }
+
+      // Expose to window
+      window.launchConfetti = launchConfetti;
+    })();
+  </script>
+</body>
+</html>
 <!DOCTYPE html>
 <!--[if lt IE 7]> <html class="ie lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>    <html class="ie lt-ie9 lt-ie8"> <![endif]-->
